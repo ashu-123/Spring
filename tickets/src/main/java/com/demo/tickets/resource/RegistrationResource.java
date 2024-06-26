@@ -19,7 +19,7 @@ public class RegistrationResource {
 
     @PostMapping
     public Registration create(@RequestBody @Valid Registration registration) {
-        return registrationRepository.create(registration);
+        return registrationRepository.save(registration);
     }
 
     @GetMapping(path = "/{ticketCode}")
@@ -30,7 +30,10 @@ public class RegistrationResource {
 
     @PutMapping
     public Registration update(@RequestBody Registration registration) {
-        return registrationRepository.update(registration);
+        String ticketCode = registration.ticketCode();
+        var existing = registrationRepository.findByTicketCode(ticketCode)
+                .orElseThrow(() -> new NoSuchElementException("Registration with ticket code " + ticketCode + " not found"));
+        return registrationRepository.save(new Registration(existing.id(), existing.productId(), ticketCode, registration.attendeeName()));
     }
 
     @DeleteMapping(path = "/{ticketCode}")
