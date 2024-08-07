@@ -4,7 +4,6 @@ import com.learning.trackzilla.model.Application;
 import com.learning.trackzilla.model.Release;
 import com.learning.trackzilla.model.Ticket;
 import com.learning.trackzilla.repositories.ApplicationRepository;
-import com.learning.trackzilla.repositories.ReleaseRepository;
 import com.learning.trackzilla.repositories.TicketRepository;
 import com.learning.trackzilla.service.ApplicationService;
 import com.learning.trackzilla.service.ReleaseService;
