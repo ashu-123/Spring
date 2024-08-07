@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -16,15 +17,19 @@ public class Release {
     private List<Ticket> tickets;
     private LocalDate releaseDate;
 
+    @Transient
+    private Double estimatedCosts;
+
     public Release() {
 
     }
 
-    public Release(String name, String description, List<Ticket> tickets, LocalDate releaseDate) {
+    public Release(String name, String description, List<Ticket> tickets, LocalDate releaseDate, Double estimatedCosts) {
         this.name = name;
         this.description = description;
         this.tickets = tickets;
         this.releaseDate = releaseDate;
+        this.estimatedCosts = estimatedCosts;
     }
 
     public LocalDate getReleaseDate() {
@@ -66,5 +71,9 @@ public class Release {
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
     }
+
+    public Double getEstimatedCosts() { return this.estimatedCosts; }
+
+    public void setEstimatedCosts(Double estimatedCosts) { this.estimatedCosts = estimatedCosts; }
 
 }
