@@ -13,6 +13,8 @@ public interface TicketRepository extends MongoRepository<Ticket, String> {
 
     List<Ticket> findByStatus(String status);
 
+    List<Ticket> findByAppId(String appId);
+
     @Query("{ 'status' : ?0 }")
     Stream<Ticket> findAllByCustomQueryAndStream(String status);
 

@@ -117,6 +117,11 @@ public class TzaController {
         return ticketRepository.findByStatus(status);
     }
 
+    @RequestMapping(value = "/tickets/appId/{appId}", method = RequestMethod.GET)
+    public List<Ticket> findByAppId(@PathVariable("appId") String appId) {
+        return ticketRepository.findByAppId(appId);
+    }
+
     @RequestMapping(value = "/tickets/count", method = RequestMethod.GET)
     public Long countAllTickets() {
         Stream<Ticket> stream = ticketRepository.findAllByCustomQueryAndStream("Open");
