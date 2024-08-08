@@ -2,12 +2,14 @@ package com.learning.trackzilla.service;
 
 
 import com.learning.trackzilla.model.Application;
+import com.learning.trackzilla.model.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
@@ -37,5 +39,17 @@ public class ApplicationServiceImpl implements ApplicationService {
         Update update = new Update();
         update.set("name", "Trainer");
         mongoTemplate.updateFirst(query, update, Application.class);
+    }
+
+    @Override
+    @Transactional
+    public void retireApplication(Application application) {
+        mongoTemplate.remove(application);
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("appId").is(application.getId()));
+        Update update = new Update();
+        update.set("status", "Cancel");
+        mongoTemplate.updateMulti(query, update, Ticket.class);
     }
 }

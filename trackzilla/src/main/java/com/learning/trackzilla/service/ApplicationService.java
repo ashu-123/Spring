@@ -9,6 +9,8 @@ public interface ApplicationService {
     Application findByIdTemplate(String id);
     void deleteWTemplate(Application application);
     void updateApplicationWTemplate(Application application);
+
+    void retireApplication(Application application);
 }
 
 

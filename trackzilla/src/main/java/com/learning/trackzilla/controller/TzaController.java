@@ -181,4 +181,10 @@ public class TzaController {
         return session.getAttribute("USER");
     }
 
+    //************* Transaction Management *****************************
+    @RequestMapping(value = "retire/application", method = RequestMethod.DELETE)
+    public void retireApplication(@RequestBody Application application) {  //just pass in the Id
+        applicationService.retireApplication(application);
+    }
+
 }
