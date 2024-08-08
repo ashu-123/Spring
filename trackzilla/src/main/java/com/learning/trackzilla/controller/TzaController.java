@@ -3,10 +3,12 @@ package com.learning.trackzilla.controller;
 import com.learning.trackzilla.model.Application;
 import com.learning.trackzilla.model.Release;
 import com.learning.trackzilla.model.Ticket;
+import com.learning.trackzilla.model.User;
 import com.learning.trackzilla.repositories.ApplicationRepository;
 import com.learning.trackzilla.repositories.TicketRepository;
 import com.learning.trackzilla.service.ApplicationService;
 import com.learning.trackzilla.service.ReleaseService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -165,6 +167,18 @@ public class TzaController {
     @RequestMapping(value = "/releases/status/{status}", method = RequestMethod.GET)
     public List<Release> getReleaseByTicketStatus(@PathVariable("status") String status){
         return releaseService.getReleaseByTicketStatus(status);
+    }
+
+    //************ Methods for User Session****************************
+    @RequestMapping(value = "/user", method = RequestMethod.PUT)
+    public User addUserToSession(@RequestBody User user, HttpSession session) {
+        session.setAttribute("USER", user);
+        return user;
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public Object getUserFromSession(HttpSession session){
+        return session.getAttribute("USER");
     }
 
 }

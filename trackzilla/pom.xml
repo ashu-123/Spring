@@ -29,6 +29,18 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+<!--	<dependencyManagement>-->
+<!--		<dependencies>-->
+<!--			&lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.session/spring-session-bom &ndash;&gt;-->
+<!--			<dependency>-->
+<!--				<groupId>org.springframework.session</groupId>-->
+<!--				<artifactId>spring-session-bom</artifactId>-->
+<!--				<version>2021.2.3</version>-->
+<!--				<type>pom</type>-->
+<!--				<scope>import</scope>-->
+<!--			</dependency>-->
+<!--		</dependencies>-->
+<!--	</dependencyManagement>-->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -37,6 +49,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-data-mongodb</artifactId>
 		</dependency>
 
 		<dependency>
