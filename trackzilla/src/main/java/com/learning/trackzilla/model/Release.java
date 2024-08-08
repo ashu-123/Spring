@@ -1,11 +1,11 @@
 package com.learning.trackzilla.model;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.ZonedDateTime;
+import java.util.List;
 
 @Document
 public class Release {
@@ -15,7 +15,7 @@ public class Release {
     private String name;
     private String description;
     private List<Ticket> tickets;
-    private LocalDate releaseDate;
+    private ZonedDateTime releaseDate;
 
     @Transient
     private Double estimatedCosts;
@@ -24,7 +24,7 @@ public class Release {
 
     }
 
-    public Release(String name, String description, List<Ticket> tickets, LocalDate releaseDate, Double estimatedCosts) {
+    public Release(String name, String description, List<Ticket> tickets, ZonedDateTime releaseDate, Double estimatedCosts) {
         this.name = name;
         this.description = description;
         this.tickets = tickets;
@@ -32,11 +32,11 @@ public class Release {
         this.estimatedCosts = estimatedCosts;
     }
 
-    public LocalDate getReleaseDate() {
+    public ZonedDateTime getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(LocalDate releaseDate) {
+    public void setReleaseDate(ZonedDateTime releaseDate) {
         this.releaseDate = releaseDate;
     }
 
