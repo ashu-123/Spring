@@ -24,7 +24,7 @@ public class BikeController {
 	
 	@GetMapping
 	public List<Bike> list() {
-		return bikeRepository.findAll();
+		System.out.println("here");return bikeRepository.findAll();
 	}
 	
 	@PostMapping
