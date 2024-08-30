@@ -58,6 +58,11 @@ public class FlightPlanTemplateDataService implements FlightPlanDataService {
     }
 
     @Override
+    public void insert(FlightPlan flightPlan) {
+        this.mongoOperations.insert(flightPlan);
+    }
+
+    @Override
     public FlightPlan findById(String id) {
         return mongoOperations.findById(id, FlightPlan.class);
     }

@@ -1,10 +1,16 @@
 package com.learning.flights;
 
+import com.learning.flights.domain.Aircraft;
+import com.learning.flights.domain.FlightPlan;
+import com.learning.flights.domain.WakeTurbulence;
+import com.learning.flights.service.AircraftRepository;
 import com.learning.flights.service.FlightPlanDataService;
-import com.learning.flights.service.FlightPlanTemplateDataService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 /*
 This component will be executed by Spring Framework immediately after application
@@ -12,10 +18,14 @@ bootstrap
  */
 @Component
 public class MainRunner implements CommandLineRunner {
-    private FlightPlanDataService flightPlanDataService;
+    private final FlightPlanDataService flightPlanDataService;
 
-    public MainRunner(@Qualifier("flightPlanRepositoryDataService") FlightPlanDataService flightPlanDataService) {
+
+    private final AircraftRepository aircraftRepository;
+
+    public MainRunner(@Qualifier("flightPlanRepositoryDataService") FlightPlanDataService flightPlanDataService, AircraftRepository aircraftRepository) {
         this.flightPlanDataService = flightPlanDataService;
+        this.aircraftRepository = aircraftRepository;
     }
 
     @Override
@@ -48,7 +58,22 @@ public class MainRunner implements CommandLineRunner {
         //flightPlanDataService.deleteById("63e383b9b64a16763c50e5c8");
         //flightPlanDataService.deleteAllFromParis();
         //flightPlanDataService.deleteAll();
-        System.out.println(this.flightPlanDataService.deleteDocuments());
+        //System.out.println(this.flightPlanDataService.deleteDocuments());
+
+
+        /////////////////////////////////////////////////////////////
+
+        var aircraft = new Aircraft("ET-01", 700, WakeTurbulence.Heavy);
+        this.aircraftRepository.insert(aircraft);
+
+        var f1 = new FlightPlan("Kochi",
+                "Bengaluru",
+                LocalDateTime.now(),
+                5000,
+                List.of("Amausi"),
+                true,
+                aircraft);
+        this.flightPlanDataService.insert(f1);
 
     }
 

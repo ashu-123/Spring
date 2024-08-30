@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
@@ -24,6 +25,7 @@ public class FlightPlan {
     private int flightDuration;
     private List<String> crossedCountries;
     private boolean isInternational;
+    @DocumentReference
     private Aircraft aircraft;
 
     public FlightPlan(String departureCity,

@@ -9,6 +9,8 @@ import java.util.List;
 public interface FlightPlanDataService {
     void initializeFlightPlans();
 
+    void insert(FlightPlan flightPlan);
+
     FlightPlan findById(String id);
 
     List<FlightPlan> findByInternationalAndCrossingAmausi();

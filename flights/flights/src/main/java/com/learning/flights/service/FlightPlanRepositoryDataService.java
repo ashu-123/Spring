@@ -20,6 +20,10 @@ public class FlightPlanRepositoryDataService implements FlightPlanDataService{
         this.flightPlanRepository = flightPlanRepository;
     }
 
+    public void insert(FlightPlan flightPlan) {
+        this.flightPlanRepository.insert(flightPlan);
+    }
+
 
     @Override
     public void initializeFlightPlans() {
