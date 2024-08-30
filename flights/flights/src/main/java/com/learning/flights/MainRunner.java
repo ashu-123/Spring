@@ -63,7 +63,7 @@ public class MainRunner implements CommandLineRunner {
 
         /////////////////////////////////////////////////////////////
 
-        var aircraft = new Aircraft("ET-01", 700, WakeTurbulence.Heavy);
+        var aircraft = new Aircraft("ET -01", 700, WakeTurbulence.Heavy);
         this.aircraftRepository.insert(aircraft);
 
         var f1 = new FlightPlan("Kochi",
