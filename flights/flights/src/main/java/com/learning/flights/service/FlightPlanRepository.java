@@ -4,6 +4,7 @@ import com.learning.flights.domain.FlightPlan;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.mongodb.repository.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,4 +18,7 @@ public interface FlightPlanRepository extends MongoRepository<FlightPlan, String
 
     @Query("{'isInternational' : true, 'crossedCountries' : { '$in' : ['Amausi']}}")
     public List<FlightPlan> findByInternationalAndCrossingAmausi();
+
+    @Update("{'$set' : { 'aircraft.capacity' : ?1 }}")
+    public void findAndUpdateAircraftCapacityById(String id, int newCapacity);
 }

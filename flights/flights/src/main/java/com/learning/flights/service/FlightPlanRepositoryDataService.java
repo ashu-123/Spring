@@ -72,8 +72,8 @@ public class FlightPlanRepositoryDataService implements FlightPlanDataService{
     }
 
     @Override
-    public UpdateResult updateAircraftCapacity(int newCapacity) {
-        return null;
+    public void updateAircraftCapacity(int newCapacity) {
+         this.flightPlanRepository.findAndUpdateAircraftCapacityById("66d1812961ef0f26af75e46c", newCapacity);
     }
 
     @Override

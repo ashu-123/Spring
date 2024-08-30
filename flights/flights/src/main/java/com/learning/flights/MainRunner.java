@@ -27,7 +27,7 @@ public class MainRunner implements CommandLineRunner {
 
         // read (query)
         //System.out.println(this.flightPlanDataService.findById("63e383b9b64a16763c50e5c8"));
-        System.out.println(this.flightPlanDataService.findByInternationalAndCrossingAmausi());
+        //System.out.println(this.flightPlanDataService.findByInternationalAndCrossingAmausi());
         //System.out.println(this.flightPlanDataService.findByFirstTwoFlightsWhichLastBetweenOneAndThreeHours());
         //System.out.println(this.flightPlanDataService.findByLucknowFlightsAndOrderBySeatCapacity());
         //System.out.println(this.flightPlanDataService.findByFullTextSearch("France"));
@@ -42,7 +42,7 @@ public class MainRunner implements CommandLineRunner {
         );
          */
 
-        //this.flightPlanDataService.changeDurationForFlightsInParis(100);
+        //this.flightPlanDataService.updateAircraftCapacity(7000);
 
         // delete
         //flightPlanDataService.deleteById("63e383b9b64a16763c50e5c8");

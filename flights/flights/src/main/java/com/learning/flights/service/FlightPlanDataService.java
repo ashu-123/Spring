@@ -17,7 +17,7 @@ public interface FlightPlanDataService {
 
     List<FlightPlan> findByLucknowFlightsAndOrderBySeatCapacity();
 
-    UpdateResult updateAircraftCapacity(int newCapacity);
+    void updateAircraftCapacity(int newCapacity);
 
     DeleteResult deleteDocuments();
 }

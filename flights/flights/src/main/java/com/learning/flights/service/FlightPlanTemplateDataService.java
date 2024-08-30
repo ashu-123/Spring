@@ -90,10 +90,10 @@ public class FlightPlanTemplateDataService implements FlightPlanDataService {
     }
 
     @Override
-    public UpdateResult updateAircraftCapacity(int newCapacity) {
+    public void updateAircraftCapacity(int newCapacity) {
         var criteria = Criteria.where("id").is("66d1812961ef0f26af75e46c");
         var updateOp = Update.update("aircraft.capacity", newCapacity);
-        return mongoOperations.updateFirst(new Query(criteria), updateOp, FlightPlan.class);
+        mongoOperations.updateFirst(new Query(criteria), updateOp, FlightPlan.class);
     }
 
     @Override
