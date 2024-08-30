@@ -34,7 +34,7 @@ public class MainRunner implements CommandLineRunner {
 
         // update
 
-        System.out.println(this.flightPlanDataService.updateAircraftCapacity(50000));
+//        System.out.println(this.flightPlanDataService.updateAircraftCapacity(50000));
         /*
         this.flightPlanDataService.incrementDepartureTime(
                 "63e383b9b64a16763c50e5c8",
@@ -48,6 +48,7 @@ public class MainRunner implements CommandLineRunner {
         //flightPlanDataService.deleteById("63e383b9b64a16763c50e5c8");
         //flightPlanDataService.deleteAllFromParis();
         //flightPlanDataService.deleteAll();
+        System.out.println(this.flightPlanDataService.deleteDocuments());
     }
 
 

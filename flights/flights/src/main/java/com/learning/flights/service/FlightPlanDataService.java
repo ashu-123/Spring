@@ -3,6 +3,7 @@ package com.learning.flights.service;
 import com.learning.flights.domain.Aircraft;
 import com.learning.flights.domain.FlightPlan;
 import com.learning.flights.domain.WakeTurbulence;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -87,5 +88,12 @@ public class FlightPlanDataService {
         var criteria = Criteria.where("id").is("66d1812961ef0f26af75e46c");
         var updateOp = Update.update("aircraft.capacity", newCapacity);
         return mongoOperations.updateFirst(new Query(criteria), updateOp, FlightPlan.class);
+    }
+
+    public DeleteResult deleteDocuments() {
+        var criteria = Criteria.where("id").in("66d1817639509261bc2f0fb4", "66d1817639509261bc2f0fb3");
+
+        var query = new Query(criteria);
+        return mongoOperations.remove(query, FlightPlan.class);
     }
 }
