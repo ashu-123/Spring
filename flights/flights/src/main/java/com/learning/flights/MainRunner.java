@@ -23,13 +23,13 @@ public class MainRunner implements CommandLineRunner {
         // create
 //        this.flightPlanDataService.initializeFlightPlans();
 
-        this.flightPlanDataService.initializeFlightPlans();
+        //this.flightPlanDataService.initializeFlightPlans();
 
         // read (query)
         //System.out.println(this.flightPlanDataService.findById("63e383b9b64a16763c50e5c8"));
-        //System.out.println(this.flightPlanDataService.findByInternationalAndCrossingAmausi());
-        //System.out.println(this.flightPlanDataService.findFirstTwoFlightsWhichLastBetweenOneAndThreeHours());
-        //System.out.println(this.flightPlanDataService.findBoeingFlightsAndOrderBySeatCapacity());
+        System.out.println(this.flightPlanDataService.findByInternationalAndCrossingAmausi());
+        //System.out.println(this.flightPlanDataService.findByFirstTwoFlightsWhichLastBetweenOneAndThreeHours());
+        //System.out.println(this.flightPlanDataService.findByLucknowFlightsAndOrderBySeatCapacity());
         //System.out.println(this.flightPlanDataService.findByFullTextSearch("France"));
 
         // update

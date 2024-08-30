@@ -5,6 +5,7 @@ import com.learning.flights.domain.FlightPlan;
 import com.learning.flights.domain.WakeTurbulence;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -52,22 +53,22 @@ public class FlightPlanRepositoryDataService implements FlightPlanDataService{
 
     @Override
     public FlightPlan findById(String id) {
-        return null;
+        return this.flightPlanRepository.findById(id).orElse(null);
     }
 
     @Override
     public List<FlightPlan> findByInternationalAndCrossingAmausi() {
-        return null;
+        return this.flightPlanRepository.findByInternationalAndCrossingAmausi();
     }
 
     @Override
     public List<FlightPlan> findByFirstTwoFlightsWhichLastBetweenOneAndThreeHours() {
-        return null;
+        return this.flightPlanRepository.findByFlightDurationBetween(60, 180, PageRequest.of(0, 2));
     }
 
     @Override
     public List<FlightPlan> findByLucknowFlightsAndOrderBySeatCapacity() {
-        return null;
+        return this.flightPlanRepository.findByAircraftModelLikeOrderByAircraftSeatCapacity("MT-10");
     }
 
     @Override
