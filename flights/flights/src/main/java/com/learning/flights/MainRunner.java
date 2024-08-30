@@ -1,12 +1,10 @@
 package com.learning.flights;
 
 import com.learning.flights.service.FlightPlanDataService;
+import com.learning.flights.service.FlightPlanTemplateDataService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 /*
 This component will be executed by Spring Framework immediately after application
@@ -16,7 +14,7 @@ bootstrap
 public class MainRunner implements CommandLineRunner {
     private FlightPlanDataService flightPlanDataService;
 
-    public MainRunner(FlightPlanDataService flightPlanDataService) {
+    public MainRunner(@Qualifier("flightPlanRepositoryDataService") FlightPlanDataService flightPlanDataService) {
         this.flightPlanDataService = flightPlanDataService;
     }
 
@@ -24,6 +22,8 @@ public class MainRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // create
 //        this.flightPlanDataService.initializeFlightPlans();
+
+        this.flightPlanDataService.initializeFlightPlans();
 
         // read (query)
         //System.out.println(this.flightPlanDataService.findById("63e383b9b64a16763c50e5c8"));

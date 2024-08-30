@@ -1,99 +1,23 @@
 package com.learning.flights.service;
 
-import com.learning.flights.domain.Aircraft;
 import com.learning.flights.domain.FlightPlan;
-import com.learning.flights.domain.WakeTurbulence;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
-public class FlightPlanDataService {
+public interface FlightPlanDataService {
+    void initializeFlightPlans();
 
-    private final MongoOperations mongoOperations;
+    FlightPlan findById(String id);
 
-    public FlightPlanDataService(MongoOperations mongoOperations) {
-        this.mongoOperations = mongoOperations;
-    }
+    List<FlightPlan> findByInternationalAndCrossingAmausi();
 
-    public void initializeFlightPlans() {
+    List<FlightPlan> findByFirstTwoFlightsWhichLastBetweenOneAndThreeHours();
 
-        var flight1 = new FlightPlan("Kanpur",
-                "Lucknow",
-                LocalDateTime.now(),
-                5000,
-                List.of("Amausi"),
-                true,
-                new Aircraft("MT-10", 400, WakeTurbulence.Heavy));
+    List<FlightPlan> findByLucknowFlightsAndOrderBySeatCapacity();
 
-        var flight2 = new FlightPlan("Mumbai",
-                "Bengaluru",
-                LocalDateTime.now(),
-                5000,
-                List.of("Amausi"),
-                true,
-                new Aircraft("MT-10", 400, WakeTurbulence.Heavy));
+    UpdateResult updateAircraftCapacity(int newCapacity);
 
-        var flight3= new FlightPlan("Lucknow",
-                "Kanpur",
-                LocalDateTime.now(),
-                5000,
-                List.of("Amausi"),
-                true,
-                new Aircraft("MT-10", 400, WakeTurbulence.Heavy));
-
-        var flights = List.of(flight2, flight3);
-        mongoOperations.insert(flight1);
-        mongoOperations.insert(flights, FlightPlan.class);
-    }
-
-    public FlightPlan findById(String id) {
-        return mongoOperations.findById(id, FlightPlan.class);
-    }
-
-    public List<FlightPlan> findByInternationalAndCrossingAmausi() {
-        var isInternational = Criteria.where("isInternational").is(true);
-        var crossingFrance = Criteria.where("crossedCountries").in("Amausi");
-        var criteria = new Criteria().andOperator(isInternational, crossingFrance);
-
-        var query = new Query();
-        query.addCriteria(criteria);
-
-        return mongoOperations.find(query, FlightPlan.class);
-    }
-
-    public List<FlightPlan> findByFirstTwoFlightsWhichLastBetweenOneAndThreeHours() {
-        var criteria = Criteria.where("flightDuration").gte(60).lte(180);
-        var query = new Query(criteria).with(PageRequest.of(0, 2));
-        return mongoOperations.find(query, FlightPlan.class);
-    }
-
-    public List<FlightPlan> findByLucknowFlightsAndOrderBySeatCapacity() {
-        var criteria = Criteria.where("destinationCity").regex("Lucknow");
-        var query = new Query(criteria).with(Sort.by("aircraft.capacity").descending());
-
-        return mongoOperations.find(query, FlightPlan.class);
-    }
-
-    public UpdateResult updateAircraftCapacity(int newCapacity) {
-        var criteria = Criteria.where("id").is("66d1812961ef0f26af75e46c");
-        var updateOp = Update.update("aircraft.capacity", newCapacity);
-        return mongoOperations.updateFirst(new Query(criteria), updateOp, FlightPlan.class);
-    }
-
-    public DeleteResult deleteDocuments() {
-        var criteria = Criteria.where("id").in("66d1817639509261bc2f0fb4", "66d1817639509261bc2f0fb3");
-
-        var query = new Query(criteria);
-        return mongoOperations.remove(query, FlightPlan.class);
-    }
+    DeleteResult deleteDocuments();
 }
