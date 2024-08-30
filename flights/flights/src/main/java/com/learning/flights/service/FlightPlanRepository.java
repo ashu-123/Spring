@@ -1,6 +1,7 @@
 package com.learning.flights.service;
 
 import com.learning.flights.domain.FlightPlan;
+import com.mongodb.client.result.DeleteResult;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -21,4 +22,6 @@ public interface FlightPlanRepository extends MongoRepository<FlightPlan, String
 
     @Update("{'$set' : { 'aircraft.capacity' : ?1 }}")
     public void findAndUpdateAircraftCapacityById(String id, int newCapacity);
+
+    public Long deleteByCrossedCountriesIn(String city);
 }

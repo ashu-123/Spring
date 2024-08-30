@@ -77,7 +77,7 @@ public class FlightPlanRepositoryDataService implements FlightPlanDataService{
     }
 
     @Override
-    public DeleteResult deleteDocuments() {
-        return null;
+    public Long deleteDocuments() {
+        return this.flightPlanRepository.deleteByCrossedCountriesIn("AAmausi");
     }
 }

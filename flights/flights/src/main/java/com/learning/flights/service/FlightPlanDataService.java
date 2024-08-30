@@ -19,5 +19,5 @@ public interface FlightPlanDataService {
 
     void updateAircraftCapacity(int newCapacity);
 
-    DeleteResult deleteDocuments();
+    Long deleteDocuments();
 }

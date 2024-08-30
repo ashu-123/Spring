@@ -48,7 +48,8 @@ public class MainRunner implements CommandLineRunner {
         //flightPlanDataService.deleteById("63e383b9b64a16763c50e5c8");
         //flightPlanDataService.deleteAllFromParis();
         //flightPlanDataService.deleteAll();
-        //System.out.println(this.flightPlanDataService.deleteDocuments());
+        System.out.println(this.flightPlanDataService.deleteDocuments());
+
     }
 
 

@@ -97,10 +97,11 @@ public class FlightPlanTemplateDataService implements FlightPlanDataService {
     }
 
     @Override
-    public DeleteResult deleteDocuments() {
+    public Long deleteDocuments() {
         var criteria = Criteria.where("id").in("66d1817639509261bc2f0fb4", "66d1817639509261bc2f0fb3");
 
         var query = new Query(criteria);
-        return mongoOperations.remove(query, FlightPlan.class);
+        mongoOperations.remove(query, FlightPlan.class);
+        return 1L;
     }
 }
