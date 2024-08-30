@@ -3,11 +3,13 @@ package com.learning.flights.service;
 import com.learning.flights.domain.Aircraft;
 import com.learning.flights.domain.FlightPlan;
 import com.learning.flights.domain.WakeTurbulence;
+import com.mongodb.client.result.UpdateResult;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -79,5 +81,11 @@ public class FlightPlanDataService {
         var query = new Query(criteria).with(Sort.by("aircraft.capacity").descending());
 
         return mongoOperations.find(query, FlightPlan.class);
+    }
+
+    public UpdateResult updateAircraftCapacity(int newCapacity) {
+        var criteria = Criteria.where("id").is("66d1812961ef0f26af75e46c");
+        var updateOp = Update.update("aircraft.capacity", newCapacity);
+        return mongoOperations.updateFirst(new Query(criteria), updateOp, FlightPlan.class);
     }
 }
