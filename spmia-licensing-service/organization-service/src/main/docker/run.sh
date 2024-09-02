@@ -1,9 +1,13 @@
 #!/bin/sh
 
+getPort() {
+    echo $1 | cut -d : -f 3 | xargs basename
+}
+
 echo "********************************************************"
 echo "Waiting for the eureka server to start on port $EUREKASERVER_PORT"
 echo "********************************************************"
-while ! `nc -z eurekaserver  $EUREKASERVER_PORT`; do sleep 3; done
+while ! `nc -z eurekaserver $EUREKASERVER_PORT`; do sleep 3; done
 echo "******* Eureka Server has started"
 
 
@@ -18,6 +22,7 @@ echo "Waiting for the configuration server to start on port $CONFIGSERVER_PORT"
 echo "********************************************************"
 while ! `nc -z configserver $CONFIGSERVER_PORT`; do sleep 3; done
 echo "*******  Configuration Server has started"
+
 
 echo "********************************************************"
 echo "Starting Organization Service  "
