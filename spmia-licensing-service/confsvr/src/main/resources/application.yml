@@ -21,7 +21,7 @@ spring:
         encrypt.enabled: false
         git:
           uri: https://github.com/carnellj/config-repo/
-          searchPaths: licensingservice,organizationservice
+          searchPaths: licensingservice,organizationservice,specialroutesservice,zuulservice,authenticationservice
           username: native-cloud-apps
           password: 0ffended
 
@@ -42,3 +42,11 @@ spring:
 #              searchLocations: file://<chapter 3>/confsvr/src/main/resources/config/licensingservice,
 #                               file://<chapter 3>confsvr/src/main/resources/config/organizationservice
 ##              #searchLocations: classpath:config/,classpath:config/licensingservice
+
+
+#Setting logging levels
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: WARN
+    com.thoughtmechanix: DEBUG

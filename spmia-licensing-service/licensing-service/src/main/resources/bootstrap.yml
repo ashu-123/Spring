@@ -4,9 +4,3 @@ spring:
   profiles:
     active:
       default
-  cloud:
-    config:
-      enabled: true
-#      discovery:
-#        enabled: true
-#        serviceId: configserver

@@ -1,3 +1,13 @@
+spring:
+  application:
+    name: zuulservice
+  profiles:
+    active:
+      default
+  cloud:
+    config:
+      enabled: true
+
 server:
   port: 5555
 
@@ -17,7 +27,15 @@ eureka:
     serviceUrl:
         defaultZone: http://localhost:8761/eureka/
 
-zuul:
-  prefix:  /api
-  routes:
-    organizationservice: /organization/**
+
+
+#
+#
+#  debug:
+#    request: true
+#
+#zuul:
+#  prefix:  /api
+#  routes:
+#    organizationservice: /organization/**
+#    licensingservice: /licensing/**

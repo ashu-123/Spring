@@ -1,6 +1,7 @@
-package com.thoughtmechanix.zuulsvr.utils;
+package com.thoughtmechanix.authentication.utils;
 
 
+import com.thoughtmechanix.authentication.utils.*;
 import org.springframework.util.Assert;
 
 public class UserContextHolder {

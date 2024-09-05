@@ -1,6 +1,5 @@
 package com.thoughtmechanix.zuulsvr.filters;
 
-
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.thoughtmechanix.zuulsvr.model.AbTestingRoute;
@@ -43,7 +42,7 @@ import java.util.Random;
 @Component
 public class SpecialRoutesFilter extends ZuulFilter {
     private static final int FILTER_ORDER =  1;
-    private static final boolean SHOULD_FILTER =true;
+    private static final boolean SHOULD_FILTER = false;
 
     @Autowired
     FilterUtils filterUtils;
@@ -190,8 +189,6 @@ public class SpecialRoutesFilter extends ZuulFilter {
         finally {
         }
     }
-
-
 
     public boolean useSpecialRoute(AbTestingRoute testRoute){
         Random random = new Random();

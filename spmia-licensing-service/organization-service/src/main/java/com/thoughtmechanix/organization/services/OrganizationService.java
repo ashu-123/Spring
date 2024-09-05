@@ -12,6 +12,7 @@ public class OrganizationService {
     @Autowired
     private OrganizationRepository orgRepository;
 
+
     public Organization getOrg(String organizationId) {
         return orgRepository.findById(organizationId);
     }
@@ -20,14 +21,14 @@ public class OrganizationService {
         org.setId( UUID.randomUUID().toString());
 
         orgRepository.save(org);
-
     }
 
     public void updateOrg(Organization org){
         orgRepository.save(org);
+
     }
 
-    public void deleteOrg(Organization org){
-        orgRepository.delete( org.getId());
+    public void deleteOrg(String orgId){
+        orgRepository.delete( orgId);
     }
 }
