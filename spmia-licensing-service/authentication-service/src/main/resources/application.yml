@@ -1,10 +1,28 @@
 #Setting the logging levels for the service
+signing:
+  key: "345345fsdfsf5345"
 logging:
   level:
     com.netflix: WARN
     org.springframework.web: WARN
     com.thoughtmechanix: DEBUG
-
+spring:
+  jpa:
+    database: "POSTGRESQL"
+    show-sql: "true"
+    properties:
+      hibernate:
+        dialect: "org.hibernate.dialect.PostgreSQLDialect"
+  datasource:
+    platform: "postgres"
+    url: "jdbc:postgresql://localhost:5432/eagle_eye_local"
+    driver-class-name: "org.postgresql.Driver"
+    username: "postgres"
+    password: "postgres"
+    testWhileIdle: "true"
+    validationQuery: "SELECT 1"
+  database:
+    driverClassName: "org.postgresql.Driver"
 eureka:
   instance:
     preferIpAddress: true
@@ -12,7 +30,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-        defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
 
 server:
-  contextPath:   /auth
+  contextPath: /auth
