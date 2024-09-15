@@ -44,4 +44,24 @@ class CreditApplicationTests {
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 	}
 
+	@Test
+	public void shouldDenyApplicationWhenCreditScoreIsLow() throws Exception{
+		mockMvc.perform(
+				post("/credit-card-applications")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content("{" +
+								"\"citizenNumber\": 4444" + "," +
+								"\"cardType\": \"GOLD\"" +
+								"}"
+						))
+				.andDo(print())
+				.andExpect(status().isOk())
+//				.andDo(print())
+				.andExpect(content().json(
+						"{" +
+								"\"status\": \"DENIED\"" +
+								"}"))
+				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+	}
+
 }

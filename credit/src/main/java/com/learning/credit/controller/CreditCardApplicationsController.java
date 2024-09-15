@@ -15,8 +15,10 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import static com.learning.credit.model.ApplyForCreditCardRequest.CardType.GOLD;
+import static com.learning.credit.model.ApplyForCreditCardResponse.Status.DENIED;
 import static com.learning.credit.model.ApplyForCreditCardResponse.Status.GRANTED;
 import static com.learning.credit.model.CreditCheckResponse.Score.HIGH;
+import static com.learning.credit.model.CreditCheckResponse.Score.LOW;
 
 @RestController
 public class CreditCardApplicationsController {
@@ -37,6 +39,9 @@ public class CreditCardApplicationsController {
                 CreditCheckResponse.class);
         if (creditCheckResponse.getScore() == HIGH && applyForCreditCardRequest.getCardType() == GOLD) {
             return new ApplyForCreditCardResponse(GRANTED);
+        }
+        else if(creditCheckResponse.getScore() == LOW && applyForCreditCardRequest.getCardType() == GOLD) {
+            return new ApplyForCreditCardResponse(DENIED);
         }
         throw new RuntimeException("Error occurred");
     }
