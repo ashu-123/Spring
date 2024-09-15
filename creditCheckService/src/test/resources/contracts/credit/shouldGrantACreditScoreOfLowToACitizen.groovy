@@ -6,11 +6,10 @@ Contract.make {
     request {
         method 'POST'
         url '/credit-scores'
-        body """
-        {
-            "citizenNumber" : 4444
-        }
-        """
+        body(
+                "citizenNumber": 4444,
+                "requestedDate": anyDate()
+        )
         headers {
             contentType applicationJson()
         }
@@ -18,11 +17,10 @@ Contract.make {
 
     response {
         status 200
-        body """
-        {
-            "score" : "LOW"
-        }
-        """
+        body(
+                "score": "LOW",
+                "uuid": $(consumer("550e8400-e29b-41d4-a716-446655440000"), producer(anyUuid()))
+        )
         headers {
             contentType applicationJson()
         }
