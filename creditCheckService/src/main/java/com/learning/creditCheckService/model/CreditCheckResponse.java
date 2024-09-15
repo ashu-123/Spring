@@ -6,10 +6,11 @@ public class CreditCheckResponse {
 
     private Score score;
 
-    private String uuid = UUID.randomUUID().toString();
+    private String uuid;
 
-    public CreditCheckResponse(Score score) {
+    public CreditCheckResponse(Score score, String uuid) {
         this.score = score;
+        this.uuid = uuid;
     }
 
     public Score getScore() {
