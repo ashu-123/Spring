@@ -34,9 +34,11 @@ public class CreditCardApplicationsController {
                                                          @Value("${creditcheckservice.baseurl}") String baseUrl) {
         int citizenNumber = applyForCreditCardRequest.getCitizenNumber();
         String uri = UriComponentsBuilder.fromHttpUrl(baseUrl).path("credit-scores").toUriString();
+        var creditCheckRequest = new CreditCheckRequest(citizenNumber);
         var creditCheckResponse = restTemplate.postForObject(uri,
-                new CreditCheckRequest(citizenNumber),
+                creditCheckRequest,
                 CreditCheckResponse.class);
+        if(!creditCheckRequest.getUuid().equals(creditCheckResponse.getUuid())) throw new RuntimeException("Error");
         if (creditCheckResponse.getScore() == HIGH && applyForCreditCardRequest.getCardType() == GOLD) {
             var response = new ApplyForCreditCardResponse(GRANTED);
             response.setUuid(creditCheckResponse.getUuid());

@@ -10,11 +10,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties.StubsMode.LOCAL;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -37,11 +37,8 @@ class CreditApplicationTests {
 				.andDo(print())
 				.andExpect(status().isOk())
 //				.andDo(print())
-				.andExpect(content().json(
-						"{" +
-								"\"status\": \"GRANTED\"" + "," +
-								"\"uuid\": \"550e8400-e29b-41d4-a716-446655440000\"" +
-								"}"))
+				.andExpect(jsonPath("$.status").value("GRANTED"))
+				.andExpect(jsonPath("$.uuid").value(notNullValue()))
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 	}
 
@@ -58,11 +55,13 @@ class CreditApplicationTests {
 				.andDo(print())
 				.andExpect(status().isOk())
 //				.andDo(print())
-				.andExpect(content().json(
-						"{" +
-								"\"status\": \"DENIED\"" + "," +
-								"\"uuid\": \"550e8400-e29b-41d4-a716-446655440000\"" +
-								"}"))
+				.andExpect(jsonPath("$.status").value("DENIED"))
+				.andExpect(jsonPath("$.uuid").value(notNullValue()))
+//				.andExpect(content().json(
+//						"{" +
+//								"\"status\": \"DENIED\"" + "," +
+//								"\"uuid\": \"550e8400-e29b-41d4-a716-446655440000\"" +
+//								"}"))
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 	}
 
