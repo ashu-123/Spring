@@ -39,7 +39,8 @@ class CreditApplicationTests {
 //				.andDo(print())
 				.andExpect(content().json(
 						"{" +
-								"\"status\": \"GRANTED\"" +
+								"\"status\": \"GRANTED\"" + "," +
+								"\"uuid\": \"550e8400-e29b-41d4-a716-446655440000\"" +
 								"}"))
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 	}
@@ -59,7 +60,8 @@ class CreditApplicationTests {
 //				.andDo(print())
 				.andExpect(content().json(
 						"{" +
-								"\"status\": \"DENIED\"" +
+								"\"status\": \"DENIED\"" + "," +
+								"\"uuid\": \"550e8400-e29b-41d4-a716-446655440000\"" +
 								"}"))
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 	}

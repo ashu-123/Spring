@@ -38,10 +38,14 @@ public class CreditCardApplicationsController {
                 new CreditCheckRequest(citizenNumber),
                 CreditCheckResponse.class);
         if (creditCheckResponse.getScore() == HIGH && applyForCreditCardRequest.getCardType() == GOLD) {
-            return new ApplyForCreditCardResponse(GRANTED);
+            var response = new ApplyForCreditCardResponse(GRANTED);
+            response.setUuid(creditCheckResponse.getUuid());
+            return response;
         }
         else if(creditCheckResponse.getScore() == LOW && applyForCreditCardRequest.getCardType() == GOLD) {
-            return new ApplyForCreditCardResponse(DENIED);
+            var response =  new ApplyForCreditCardResponse(DENIED);
+            response.setUuid(creditCheckResponse.getUuid());
+            return response;
         }
         throw new RuntimeException("Error occurred");
     }
