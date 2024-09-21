@@ -20,7 +20,7 @@ class Spring6jdbc3ApplicationTests {
         RestTemplate restTemplate = new RestTemplate();
 
         Speaker speaker = new Speaker();
-        speaker.setName("Ashu");
+        speaker.setName("Ashufgf");
         restTemplate.put(
                 "http://localhost:8080/speaker", speaker);
     }
@@ -39,7 +39,8 @@ class Spring6jdbc3ApplicationTests {
         List<Speaker> speakers = speakersResponse.getBody();
 
         for (Speaker speaker : speakers) {
-            System.out.println("Speaker name: " + speaker.getName());
+
+            System.out.println("Speaker id: " + speaker.getId() + " Speaker name: " + speaker.getName());
         }
     }
 }
