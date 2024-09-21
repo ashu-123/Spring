@@ -4,6 +4,7 @@ import com.learning.conference.model.Speaker;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -83,7 +84,12 @@ public class SpeakerRepositoryImpl implements SpeakerRepository {
 
     @Override
     public void deleteSpeaker(int id) {
-        jdbcTemplate.update("delete speaker where id = ?", id);
+//        jdbcTemplate.update("delete speaker where id = ?", id);
+
+        var namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
+        var params = new HashMap<String, Object>();
+        params.put("id", id);
+        namedParameterJdbcTemplate.update("delete speaker where id = :id", params);
     }
 
     private RowMapper<Speaker> getRowMapper() {

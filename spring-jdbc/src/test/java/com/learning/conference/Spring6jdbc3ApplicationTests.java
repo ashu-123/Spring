@@ -81,7 +81,7 @@ class Spring6jdbc3ApplicationTests {
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<Speaker> speakersResponse = restTemplate.exchange(
-                "http://localhost:8080/speaker/1", HttpMethod.DELETE,
+                "http://localhost:8080/speaker/2", HttpMethod.DELETE,
                 null, new ParameterizedTypeReference<Speaker>() {
                 });
     }
