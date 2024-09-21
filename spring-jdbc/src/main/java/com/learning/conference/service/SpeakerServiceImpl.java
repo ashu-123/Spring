@@ -34,4 +34,9 @@ public class SpeakerServiceImpl implements SpeakerService {
     public Speaker updateSpeaker(Speaker speaker) {
         return speakerRepository.updateSpeaker(speaker);
     }
+
+    @Override
+    public void deleteSpeaker(int id) {
+        speakerRepository.deleteSpeaker(id);
+    }
 }

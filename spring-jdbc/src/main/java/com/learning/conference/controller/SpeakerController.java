@@ -36,4 +36,10 @@ public class SpeakerController {
         System.out.println(speaker.getName());
         return speakerService.updateSpeaker(speaker);
     }
+
+    @DeleteMapping("/speaker/{id}")
+    public Speaker deleteSpeaker(@PathVariable("id") int id) {
+        speakerService.deleteSpeaker(id);
+        return null;
+    }
 }

@@ -81,6 +81,11 @@ public class SpeakerRepositoryImpl implements SpeakerRepository {
         return speaker;
     }
 
+    @Override
+    public void deleteSpeaker(int id) {
+        jdbcTemplate.update("delete speaker where id = ?", id);
+    }
+
     private RowMapper<Speaker> getRowMapper() {
         RowMapper<Speaker> rowMapper = (rs, rowNum) -> {
             Speaker speaker = new Speaker();

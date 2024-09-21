@@ -72,7 +72,17 @@ class Spring6jdbc3ApplicationTests {
         Speaker speaker = speakersResponse.getBody();
 
 
-            System.out.println("Speaker id: " + speaker.getId() + " Speaker name: " + speaker.getName());
+        System.out.println("Speaker id: " + speaker.getId() + " Speaker name: " + speaker.getName());
 
+    }
+
+    @Test
+    void testDeleteSpeaker() {
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<Speaker> speakersResponse = restTemplate.exchange(
+                "http://localhost:8080/speaker/1", HttpMethod.DELETE,
+                null, new ParameterizedTypeReference<Speaker>() {
+                });
     }
 }

@@ -12,4 +12,6 @@ public interface SpeakerRepository {
     Speaker getSpeaker(int id);
 
     Speaker updateSpeaker(Speaker speaker);
+
+    void deleteSpeaker(int id);
 }
