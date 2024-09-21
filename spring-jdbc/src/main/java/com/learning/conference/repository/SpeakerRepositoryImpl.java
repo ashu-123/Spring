@@ -17,4 +17,9 @@ public class SpeakerRepositoryImpl implements SpeakerRepository {
         speakers.add(speaker);
         return speakers;
     }
+
+    @Override
+    public Speaker create(Speaker speaker) {
+        return null;
+    }
 }

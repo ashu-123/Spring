@@ -26,6 +26,6 @@ public class SpeakerController {
     @PutMapping("/speaker")
     public Speaker createSpeaker(@RequestBody Speaker speaker) {
         System.out.println(speaker.getName());
-        return null;
+        return speakerService.create(speaker);
     }
 }
