@@ -2,10 +2,7 @@ package com.learning.conference.controller;
 
 import com.learning.conference.model.Speaker;
 import com.learning.conference.service.SpeakerService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,7 +20,7 @@ public class SpeakerController {
         return speakerService.findAll();
     }
 
-    @PutMapping("/speaker")
+    @PostMapping("/speaker")
     public Speaker createSpeaker(@RequestBody Speaker speaker) {
         System.out.println(speaker.getName());
         return speakerService.create(speaker);
