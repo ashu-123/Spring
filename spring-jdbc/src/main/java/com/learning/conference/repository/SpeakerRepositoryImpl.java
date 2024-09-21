@@ -2,10 +2,13 @@ package com.learning.conference.repository;
 
 import com.learning.conference.model.Speaker;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository("speakerRepository")
 public class SpeakerRepositoryImpl implements SpeakerRepository {
@@ -27,7 +30,21 @@ public class SpeakerRepositoryImpl implements SpeakerRepository {
 
     @Override
     public Speaker create(Speaker speaker) {
-        jdbcTemplate.update("INSERT INTO speaker (name) values (?)", speaker.getName());
+//        jdbcTemplate.update("INSERT INTO speaker (name) values (?)", speaker.getName());
+
+        SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
+        insert.setTableName("speaker");
+
+        List<String> columnNames = new ArrayList<>();
+        columnNames.add("name");
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("name", speaker.getName());
+
+        insert.setGeneratedKeyName("id");
+        Number key = insert.executeAndReturnKey(data);
+
+        System.out.println(key);
         return null;
     }
 }
