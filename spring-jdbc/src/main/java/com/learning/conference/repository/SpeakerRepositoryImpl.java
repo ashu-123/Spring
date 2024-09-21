@@ -1,6 +1,7 @@
 package com.learning.conference.repository;
 
 import com.learning.conference.model.Speaker;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -8,6 +9,12 @@ import java.util.List;
 
 @Repository("speakerRepository")
 public class SpeakerRepositoryImpl implements SpeakerRepository {
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public SpeakerRepositoryImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public List<Speaker> findAll() {
         Speaker speaker = new Speaker();
@@ -20,6 +27,7 @@ public class SpeakerRepositoryImpl implements SpeakerRepository {
 
     @Override
     public Speaker create(Speaker speaker) {
+        jdbcTemplate.update("INSERT INTO speaker (name) values (?)", speaker.getName());
         return null;
     }
 }

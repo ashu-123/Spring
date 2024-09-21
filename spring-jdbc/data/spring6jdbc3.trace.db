@@ -350,3 +350,11 @@ Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Wrong user name
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:510)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
 	... 46 more
+2024-09-21 16:37:16 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM SPRING6JDBC3.SPEAKER\000d\000a\000d\000aDELETE [*]FROM SPEAKER"; SQL statement:
+SELECT * FROM SPRING6JDBC3.SPEAKER
+
+DELETE FROM SPEAKER [42000-214]
+2024-09-21 16:37:28 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SPEAKER" not found; SQL statement:
+DELETE FROM SPEAKER [42102-214]
