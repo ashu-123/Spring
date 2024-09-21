@@ -28,6 +28,18 @@ class Spring6jdbc3ApplicationTests {
     }
 
     @Test
+    void testUpdateSpeaker() {
+        RestTemplate restTemplate = new RestTemplate();
+
+        Speaker speaker = new Speaker();
+        speaker.setId(1);
+        speaker.setName("Ashufgf");
+        restTemplate.put("http://localhost:8080/speaker", speaker);
+
+        System.out.println(speaker);
+    }
+
+    @Test
     void testGetSpeakers() {
         RestTemplate restTemplate = new RestTemplate();
 
@@ -44,5 +56,23 @@ class Spring6jdbc3ApplicationTests {
 
             System.out.println("Speaker id: " + speaker.getId() + " Speaker name: " + speaker.getName());
         }
+    }
+
+    @Test
+    void testGetSpeaker() {
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<Speaker> speakersResponse = restTemplate.exchange(
+                "http://localhost:8080/speaker/1", HttpMethod.GET,
+                null, new ParameterizedTypeReference<Speaker>() {
+                });
+
+        assertTrue(speakersResponse.getBody() != null, "Body is null");
+
+        Speaker speaker = speakersResponse.getBody();
+
+
+            System.out.println("Speaker id: " + speaker.getId() + " Speaker name: " + speaker.getName());
+
     }
 }

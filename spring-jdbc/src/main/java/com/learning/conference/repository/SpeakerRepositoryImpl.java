@@ -28,14 +28,7 @@ public class SpeakerRepositoryImpl implements SpeakerRepository {
 
     public List<Speaker> findAll() {
 
-        RowMapper<Speaker> rowMapper = (rs, rowNum) -> {
-            Speaker speaker = new Speaker();
-            speaker.setId(rs.getInt("id"));
-            speaker.setName(rs.getString("name"));
-            return speaker;
-        };
-
-        List<Speaker> speakers = jdbcTemplate.query("select * from speaker", rowMapper);
+        List<Speaker> speakers = jdbcTemplate.query("select * from speaker", getRowMapper());
         return speakers;
 //        Speaker speaker = new Speaker();
 //        speaker.setName("Bryan Hansen");
@@ -75,5 +68,27 @@ public class SpeakerRepositoryImpl implements SpeakerRepository {
 
         System.out.println(key);
         return speaker;
+    }
+
+    @Override
+    public Speaker getSpeaker(int id) {
+        return jdbcTemplate.queryForObject("select * from speaker where id = ?", getRowMapper(), id);
+    }
+
+    @Override
+    public Speaker updateSpeaker(Speaker speaker) {
+        jdbcTemplate.update("update speaker set name = ? where id = ?", speaker.getName(), speaker.getId());
+        return speaker;
+    }
+
+    private RowMapper<Speaker> getRowMapper() {
+        RowMapper<Speaker> rowMapper = (rs, rowNum) -> {
+            Speaker speaker = new Speaker();
+            speaker.setId(rs.getInt("id"));
+            speaker.setName(rs.getString("name"));
+            return speaker;
+        };
+
+        return rowMapper;
     }
 }
