@@ -36,7 +36,7 @@ Management UI will be available at http://localhost:15672 (default user: guest, 
 
 ### 🏃 Run the Spring Boot App
 
-- git clone https://github.com/your-username/team-chat.git
+- git clone https://github.com/ashu-123/Spring.git
 - cd team-chat
 - mvn spring-boot:run
 
@@ -79,6 +79,13 @@ Includes:
 2. User sends a message → Relayed via RabbitMQ to all connected clients.
 3. User disconnects → "User has left" message broadcasted.
 
+
+
+![img.png](connect.png)
+
+![img_2.png](user_disconnected.png)
+
+![img_3.png](chat.png)
 ---
 
 ## 📈 Future Improvements
