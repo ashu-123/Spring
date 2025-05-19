@@ -14,4 +14,13 @@ public class PurchaseOrderMapper {
         purchaseOrder.setOrderStatus(OrderStatus.ORDER_CREATED);
         return purchaseOrder;
     }
+
+    public static OrderRequestDto orderEntityToDto(PurchaseOrder purchaseOrder) {
+        OrderRequestDto orderRequestDto = new OrderRequestDto();
+        orderRequestDto.setUserId(purchaseOrder.getUserId());
+        orderRequestDto.setOrderId(purchaseOrder.getId());
+        orderRequestDto.setAmount(purchaseOrder.getPrice());
+        orderRequestDto.setProductId(purchaseOrder.getProductId());
+        return orderRequestDto;
+    }
 }

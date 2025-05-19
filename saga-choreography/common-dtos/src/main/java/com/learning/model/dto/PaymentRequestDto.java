@@ -11,5 +11,6 @@ public class PaymentRequestDto {
 
     private Integer userId;
     private Integer productId;
+    private Integer orderId;
     private Integer amount;
 }

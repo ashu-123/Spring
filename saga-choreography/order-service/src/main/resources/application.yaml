@@ -2,9 +2,9 @@ spring:
   cloud:
     stream:
       function:
-        definition: orderSupplier
+        definition: orderSupplier; paymentEventConsumer
       bindings:
         orderSupplier-out-0: order-event
-
+        paymentEventConsumer-in-0: payment-event
 server:
   port: 8081
