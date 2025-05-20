@@ -39,7 +39,10 @@ public class PaymentService {
     @Transactional
     public PaymentEvent newOrderEvent(OrderEvent orderEvent) {
         OrderRequestDto orderRequestDto = orderEvent.getOrderRequestDto();
-        var paymentRequestDto = new PaymentRequestDto(orderRequestDto.getUserId(), orderRequestDto.getProductId(), orderRequestDto.getAmount());
+        var paymentRequestDto = new PaymentRequestDto(orderRequestDto.getUserId(),
+                orderRequestDto.getProductId(),
+                orderRequestDto.getOrderId(),
+                orderRequestDto.getAmount());
 
         return userBalanceRepository.findById(orderRequestDto.getUserId())
                 .filter(ub -> ub.getPrice() > orderRequestDto.getAmount())
