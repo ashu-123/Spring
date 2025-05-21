@@ -1,27 +1,32 @@
 package com.learning.command.service;
 
+import com.learning.command.messaging.ProductEventPublisher;
 import com.learning.command.model.entity.Product;
 import com.learning.command.repository.ProductRepository;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class ProductCommandService {
 
     private final ProductRepository repository;
 
-    public ProductCommandService(ProductRepository repository) {
+    private final ProductEventPublisher productEventPublisher;
+
+    public ProductCommandService(ProductRepository repository,
+                                 ProductEventPublisher productEventPublisher) {
         this.repository = repository;
+        this.productEventPublisher = productEventPublisher;
     }
 
     public Product createProduct(Product product) {
-        return repository.save(product);
+        var productCreated = repository.save(product);
+        productEventPublisher.publishProductEvent(productCreated, "PRODUCT-CREATED");
+        return productCreated;
     }
 
     public Product updateProduct(ObjectId id, Product product) {
-        return repository.findById(id)
+        var productUpdated = repository.findById(id)
                 .map(p -> {
                     p.setName(product.getName());
                     p.setPrice(product.getPrice());
@@ -30,5 +35,8 @@ public class ProductCommandService {
                 })
                 .map(repository::save)
                 .orElseThrow(RuntimeException::new);
+
+        productEventPublisher.publishProductEvent(productUpdated, "PRODUCT-UPDATED");
+        return productUpdated;
     }
 }
