@@ -1,2 +1,5 @@
+com\learning\command\resource\ProductCommandResource.class
 com\learning\command\service\ProductCommandService.class
 com\learning\command\ServiceProductCommandApplication.class
+com\learning\command\model\entity\Product.class
+com\learning\command\repository\ProductRepository.class

@@ -2,7 +2,7 @@ package com.learning.command.service;
 
 import com.learning.command.model.entity.Product;
 import com.learning.command.repository.ProductRepository;
-import jakarta.persistence.EntityNotFoundException;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -20,7 +20,7 @@ public class ProductCommandService {
         return repository.save(product);
     }
 
-    public Product updateProduct(long id, Product product) {
+    public Product updateProduct(ObjectId id, Product product) {
         return repository.findById(id)
                 .map(p -> {
                     p.setName(product.getName());
@@ -29,6 +29,6 @@ public class ProductCommandService {
                     return p;
                 })
                 .map(repository::save)
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(RuntimeException::new);
     }
 }
