@@ -18,4 +18,20 @@ public class ProductQueryService {
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
+
+    public Product createProduct(Product product) {
+        return productRepository.save(product);
+    }
+
+    public Product updateProduct(Product product) {
+        return productRepository.findById(product.getId())
+                .map(p -> {
+                    p.setName(product.getName());
+                    p.setPrice(product.getPrice());
+                    p.setDescription(product.getDescription());
+                    return p;
+                })
+                .map(productRepository::save)
+                .orElseThrow(RuntimeException::new);
+    }
 }
