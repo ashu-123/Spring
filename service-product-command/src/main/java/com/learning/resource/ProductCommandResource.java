@@ -1,7 +1,8 @@
-package com.learning.command.resource;
+package com.learning.resource;
 
-import com.learning.command.model.entity.Product;
-import com.learning.command.service.ProductCommandService;
+import com.learning.model.entity.Product;
+import com.learning.service.ProductCommandService;
+import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,7 +21,7 @@ public class ProductCommandResource {
     }
 
     @PutMapping("/{id}")
-    public Product updateProduct(long id, @RequestBody Product product) {
-        return productCommandService.updateProduct(id, product);
+    public Product updateProduct(@PathVariable String id, @RequestBody Product product) {
+        return productCommandService.updateProduct(new ObjectId(id), product);
     }
 }
