@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: combined-service           # Name of the service
+  labels:
+    app: combined-service
+spec:
+  selector:
+    app: combined-service                  # Must match pod labels from the deployment
+  ports:
+    - protocol: TCP
+      port: 80                   # Port the service exposes
+      targetPort: 8080             # Port the container listens on
+  type: ClusterIP                # Default: internal access within cluster
