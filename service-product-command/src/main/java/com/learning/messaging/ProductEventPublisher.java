@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductEventPublisher {
 
-    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final KafkaTemplate<String, ProductEvent> kafkaTemplate;
 
-    public ProductEventPublisher(KafkaTemplate<String, Object> kafkaTemplate) {
+    public ProductEventPublisher(KafkaTemplate<String, ProductEvent> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
