@@ -6,6 +6,9 @@ import com.learning.repository.ProductRepository;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
+import static com.learning.model.EventType.PRODUCT_CREATED;
+import static com.learning.model.EventType.PRODUCT_UPDATED;
+
 @Service
 public class ProductCommandService {
 
@@ -21,7 +24,7 @@ public class ProductCommandService {
 
     public Product createProduct(Product product) {
         var productCreated = repository.save(product);
-        productEventPublisher.publishProductEvent(productCreated, "PRODUCT-CREATED");
+        productEventPublisher.publishProductEvent(productCreated, PRODUCT_CREATED);
         return productCreated;
     }
 
@@ -36,7 +39,7 @@ public class ProductCommandService {
                 .map(repository::save)
                 .orElseThrow(RuntimeException::new);
 
-        productEventPublisher.publishProductEvent(productUpdated, "PRODUCT-UPDATED");
+        productEventPublisher.publishProductEvent(productUpdated, PRODUCT_UPDATED);
         return productUpdated;
     }
 }

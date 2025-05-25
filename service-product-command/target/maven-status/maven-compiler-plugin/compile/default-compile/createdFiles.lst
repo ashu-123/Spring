@@ -2,6 +2,8 @@ com\learning\ServiceProductCommandApplication.class
 com\learning\model\entity\Product.class
 com\learning\model\event\ProductEvent.class
 com\learning\service\ProductCommandService.class
+com\learning\config\TopicConfiguration.class
+com\learning\model\EventType.class
 com\learning\repository\ProductRepository.class
 com\learning\resource\ProductCommandResource.class
 com\learning\messaging\ProductEventPublisher.class
