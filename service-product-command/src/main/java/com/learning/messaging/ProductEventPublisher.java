@@ -1,5 +1,6 @@
 package com.learning.messaging;
 
+import com.learning.model.EventType;
 import com.learning.model.entity.Product;
 import com.learning.model.event.ProductEvent;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -14,8 +15,8 @@ public class ProductEventPublisher {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public Product publishProductEvent(Product product, String eventType) {
-        var productEvent = new ProductEvent(eventType, product);
+    public Product publishProductEvent(Product product, EventType eventType) {
+        var productEvent = new ProductEvent(eventType.getEventType(), product);
         kafkaTemplate.send("product-event-topic", productEvent);
 
         return product;
