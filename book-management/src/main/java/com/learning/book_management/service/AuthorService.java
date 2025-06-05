@@ -7,6 +7,7 @@ import com.learning.book_management.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,15 +22,14 @@ public class AuthorService {
         Author author = new Author();
         author.setName(authorName);
 
-        List<Book> books = bookTitles.stream()
-                .map(title -> {
-                    Book book = new Book();
-                    book.setTitle(title);
-                    book.setAuthor(author);
-                    return book;
-                })
-                .toList();
+        ArrayList<Book> books = new ArrayList<>();
 
+        for (String bookTitle : bookTitles) {
+            Book book = new Book();
+            book.setTitle(bookTitle);
+            book.setAuthor(author);
+            books.add(book);
+        }
         author.setBooks(books);
         return authorRepo.save(author);
     }
