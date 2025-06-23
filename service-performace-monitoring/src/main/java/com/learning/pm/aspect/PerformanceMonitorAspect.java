@@ -29,7 +29,7 @@ public class PerformanceMonitorAspect {
         this.suspiciousArgumentDetector = suspiciousArgumentDetector;
     }
 
-    @Around("execution(* com.example.service..*(..))")
+    @Around("execution(* com.learning.pm.service..*(..))")
     public Object profileServiceMethods(ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.currentTimeMillis();
         Object result = joinPoint.proceed();
