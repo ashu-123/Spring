@@ -1,13 +1,18 @@
 package com.learning.pm.aspect;
 
 import com.learning.pm.config.PerformanceProperties;
+import com.learning.pm.detector.SuspiciousArgumentDetector;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 @Aspect
 @Component
@@ -16,8 +21,12 @@ public class PerformanceMonitorAspect {
     private static final Logger logger = LoggerFactory.getLogger(PerformanceMonitorAspect.class);
     private final PerformanceProperties properties;
 
-    public PerformanceMonitorAspect(PerformanceProperties properties) {
+    private final SuspiciousArgumentDetector suspiciousArgumentDetector;
+
+    public PerformanceMonitorAspect(PerformanceProperties properties,
+                                    SuspiciousArgumentDetector suspiciousArgumentDetector) {
         this.properties = properties;
+        this.suspiciousArgumentDetector = suspiciousArgumentDetector;
     }
 
     @Around("execution(* com.example.service..*(..))")
@@ -33,16 +42,15 @@ public class PerformanceMonitorAspect {
         logger.info("{} executed in {} ms", methodName, duration);
 
         if (duration > properties.getThresholdMs()) {
-            String suspiciousArgs = Arrays.stream(args)
-                    .map(this::describeSuspiciousArg)
+            List<String> suspiciousArgs = Arrays.stream(args)
+                    .map(suspiciousArgumentDetector::detect)
                     .filter(Optional::isPresent)
                     .map(Optional::get)
-                    .reduce((a, b) -> a + ", " + b)
-                    .orElse("None");
+                    .toList();
 
             logger.warn("⚠️ Method {} took {} ms (threshold: {} ms). Args: {}", methodName, duration, properties.getThresholdMs(), Arrays.toString(args));
-            if (!"None".equals(suspiciousArgs)) {
-                logger.warn("🚨 Possible cause: {}", suspiciousArgs);
+            if (!suspiciousArgs.isEmpty()) {
+                logger.warn("🚨 Possible cause(s): {}", String.join(", ", suspiciousArgs));
             }
 
             triggerAlert(methodName, duration, args, suspiciousArgs);
@@ -51,20 +59,7 @@ public class PerformanceMonitorAspect {
         return result;
     }
 
-    private Optional<String> describeSuspiciousArg(Object arg) {
-        if (arg == null) return Optional.empty();
-
-        return switch (arg) {
-            case String s when s.length() > 100 -> Optional.of("Large String (length=" + s.length() + ")");
-            case Collection<?> c when c.size() > 10 -> Optional.of("Large Collection (size=" + c.size() + ")");
-            case Map<?, ?> m when m.size() > 10 -> Optional.of("Large Map (size=" + m.size() + ")");
-            case Object o when o.getClass().getSimpleName().toLowerCase().contains("file") ->
-                    Optional.of("File-like Object: " + o.getClass().getSimpleName());
-            default -> Optional.empty();
-        };
-    }
-
-    private void triggerAlert(String methodName, long duration, Object[] args, String cause) {
+    private void triggerAlert(String methodName, long duration, Object[] args, List<String> cause) {
         // Simulated alert system (replace with email or Slack logic later)
         logger.error("🚨 ALERT: {} took {} ms. Cause: {}. Args: {}",
                 methodName, duration, cause, Arrays.toString(args));
